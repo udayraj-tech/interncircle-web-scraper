@@ -75,3 +75,23 @@ def save_to_txt(data, filename=TXT_OUTPUT_FILE):
             f.write(f"Tags: {', '.join(item['tags'])}\n")
             f.write("-" * 50 + "\n")
     print(f"Successfully exported readable text to {filename}")
+
+def print_summary_report(data):
+    """Calculates and outputs basic statistics about the collected dataset."""
+    if not data:
+        print("No records collected.")
+        return
+
+    authors = [item["author"] for item in data]
+    all_tags = [tag for item in data for tag in item["tags"]]
+
+    author_counts = Counter(authors)
+    tag_counts = Counter(all_tags)
+
+    most_common_author, author_freq = author_counts.most_common(1)[0]
+    most_common_tag, tag_freq = tag_counts.most_common(1)[0]
+
+    print("\n--- Scraping Summary Report ---")
+    print(f"Total quotes collected: {len(data)}")
+    print(f"Most quoted author: {most_common_author} ({author_freq} quotes)")
+    print(f"Most common tag: '{most_common_tag}' ({tag_freq} occurrences)")
