@@ -58,3 +58,20 @@ def scrape_quotes():
             url = None
 
     return quotes
+
+def save_to_json(data, filename=JSON_OUTPUT_FILE):
+    """Saves structured records to JSON."""
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+    print(f"Successfully exported JSON to {filename}")
+
+def save_to_txt(data, filename=TXT_OUTPUT_FILE):
+    """Saves human-readable records to plain text."""
+    with open(filename, "w", encoding="utf-8") as f:
+        for idx, item in enumerate(data, 1):
+            f.write(f"Quote #{idx}\n")
+            f.write(f"Text: {item['text']}\n")
+            f.write(f"Author: {item['author']}\n")
+            f.write(f"Tags: {', '.join(item['tags'])}\n")
+            f.write("-" * 50 + "\n")
+    print(f"Successfully exported readable text to {filename}")
