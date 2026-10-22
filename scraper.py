@@ -95,3 +95,13 @@ def print_summary_report(data):
     print(f"Total quotes collected: {len(data)}")
     print(f"Most quoted author: {most_common_author} ({author_freq} quotes)")
     print(f"Most common tag: '{most_common_tag}' ({tag_freq} occurrences)")
+
+def main():
+    quotes_data = scrape_quotes()
+    if quotes_data:
+        save_to_json(quotes_data)
+        save_to_txt(quotes_data)
+        print_summary_report(quotes_data)
+
+if __name__ == "__main__":
+    main()
